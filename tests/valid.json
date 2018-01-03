@@ -1,0 +1,13 @@
+{
+    "name": "nadar/php-composer-reader",
+    "description": "Read and manipulate composer.json",
+    "type": "library",
+    "require": {
+        "phpunit/phpunit": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nadar\\PhpComposerReader\\": "src/"
+        }
+    }
+}

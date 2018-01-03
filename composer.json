@@ -1,0 +1,26 @@
+{
+    "name": "nadar/php-composer-reader",
+    "description": "Read and manipulate composer.json",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Basil Suter",
+            "email": "git@nadar.io"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Nadar\\PhpComposerReader\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Nadar\\PhpComposerReader\\Tests\\": "tests/"
+        }
+    }
+}
