@@ -68,8 +68,22 @@ class AutoloadSection implements Iterator
         
         $data[$autoload->type][$autoload->namespace] = $autoload->source;
         
+        $data = $this->ensureDoubleBackslash($data);
+        
         $autoload->reader->updateSection(self::SECTION_KEY, $data);
         
         return $autoload->reader;
+    }
+    
+    private function ensureDoubleBackslash($data)
+    {
+        $ensure = [];
+        foreach ($data as $type => $items) {
+            foreach ($items as $ns => $src) {
+                $ensure[$type][str_replace("\\", "\\\\", $ns)] = $src;
+            }
+        }
+        
+        return $ensure;
     }
 }
