@@ -20,4 +20,9 @@ class ComposerReaderTestCase extends TestCase
     {
         return getcwd() . '/tests/malformed.json';
     }
+    
+    protected function getWorkingComposerJson()
+    {
+        return getcwd() . '/tests/composer.json';
+    }
 }

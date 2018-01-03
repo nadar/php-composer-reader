@@ -1,0 +1,11 @@
+{
+    "name": "nadar/php-composer-reader-true-composer-json",
+    "description": "Read and manipulate composer.json",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Foo\\": "bar/"
+        }
+    }
+}

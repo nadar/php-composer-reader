@@ -93,4 +93,15 @@ class ComposerReaderTest extends ComposerReaderTestCase
         ], $newreader->getContent());
         unlink($filename);
     }
+    
+    public function testRunCommand()
+    {
+        $reader = new ComposerReader($this->getWorkingComposerJson());
+
+        $this->assertTrue($reader->canRead());
+        
+        $r = $reader->runCommand('dumpautoload');
+        
+        $this->assertTrue($r);
+    }
 }

@@ -89,6 +89,21 @@ class ComposerReader implements ComposerReaderInterface
         $this->_content = $content;
     }
     
+    public function runCommand($command)
+    {
+        $folder = dirname($this->file);
+        $olddir = getcwd();
+        chdir($folder);
+        
+        ob_start();
+        $output = null;
+        $cmd = system('composer ' . $command, $output);
+        $output = ob_end_clean();
+        chdir($olddir);
+        
+        return $cmd === false ? false : true;
+    }
+    
     protected function getFileContent($file)
     {
         return file_get_contents($file);
