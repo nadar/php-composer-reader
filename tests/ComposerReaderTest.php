@@ -58,7 +58,6 @@ class ComposerReaderTest extends ComposerReaderTestCase
                 'hello' => 'world',
             ]
         ], $newreader->getContent());
-        
         unlink($filename);
     }
     
@@ -85,11 +84,13 @@ class ComposerReaderTest extends ComposerReaderTestCase
         $newreader = new ComposerReader($filename);
         
         $this->assertSame([
-            'foobar' => [
-                'hello' => 'world',
+            'autoload' => [
+                'psr-4' => [
+                    'luya\\'  => 'core/',
+                    '\Foo\Post\\' => 'src/goes/here',
+                 ],
             ]
         ], $newreader->getContent());
-        
         unlink($filename);
     }
 }

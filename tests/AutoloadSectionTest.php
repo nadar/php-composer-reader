@@ -31,7 +31,7 @@ class AutoloadSectionTest extends ComposerReaderTestCase
         $r = $section->add($new)->getContent();
         
         $this->assertSame([
-            'psr-4' => ['Nadar\\\\PhpComposerReader\\\\' => 'src/', 'Foo\\\\Bar\\\\' => 'src/foo/bar']
+            'psr-4' => ['Nadar\\PhpComposerReader\\' => 'src/', 'Foo\\Bar\\' => 'src/foo/bar']
         ], $r['autoload']);
     }
 }
