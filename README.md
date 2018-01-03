@@ -1,6 +1,6 @@
 # Composer read and manipulate library for PHP
 
-A PHP library to manipulate and read the composer.json file, free from any depencies.
+A PHP library to manipulate and read the **composer.json** file, free from any dependencies.
 
 ## Usage
 
