@@ -3,6 +3,8 @@
 namespace Nadar\PhpComposerReader\Tests;
 
 use Nadar\PhpComposerReader\ComposerReader;
+use Nadar\PhpComposerReader\Autoload;
+use Nadar\PhpComposerReader\AutoloadSection;
 
 class ComposerReaderTest extends ComposerReaderTestCase
 {
@@ -48,6 +50,37 @@ class ComposerReaderTest extends ComposerReaderTestCase
         $json->updateSection('foobar', ['hello' => 'world']);
         $json->getContent();
         $this->assertTrue($json->save());
+        
+        $newreader = new ComposerReader($filename);
+        
+        $this->assertSame([
+            'foobar' => [
+                'hello' => 'world',
+            ]
+        ], $newreader->getContent());
+        
+        unlink($filename);
+    }
+    
+    public function testWriteSectionWithAutoloadData()
+    {
+        $filename = getcwd() . '/tests/' . uniqid('als') . '.json';
+        $file = file_put_contents($filename, 
+'{
+    "autoload": {
+        "psr-4": {
+            "luya\\\": "core/"
+        }
+    }
+}');
+        $json = new ComposerReader($filename);
+        
+        $al = new Autoload($json, '\\Foo\Post\\', 'src/goes/here', 'psr-4');
+        
+        $als = new AutoloadSection($json);
+        
+        
+        $this->assertTrue($als->add($al)->save());
         
         $newreader = new ComposerReader($filename);
         

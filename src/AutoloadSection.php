@@ -80,7 +80,10 @@ class AutoloadSection implements Iterator
         $ensure = [];
         foreach ($data as $type => $items) {
             foreach ($items as $ns => $src) {
-                $ensure[$type][str_replace("\\", "\\\\", $ns)] = $src;
+                
+                $slashable = preg_replace('#\\+#','\\', $ns);
+                
+                $ensure[$type][$slashable] = $src;
             }
         }
         
