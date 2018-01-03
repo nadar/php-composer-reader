@@ -11,25 +11,30 @@ use Iterator;
  */
 class AutoloadSection implements Iterator
 {
-    protected $reader;
+    public $reader;
     
     protected $data;
     
-    public function __construct(ComposerReaderInterface $reader)
+    protected $type;
+    
+    const TYPE_PSR4 = 'psr-4';
+    
+    const TYPE_PSR0 = 'psr-0';
+    
+    const SECTION_KEY = 'autoload';
+    
+    public function __construct(ComposerReaderInterface $reader, $type = self::TYPE_PSR4)
     {
         $this->reader = $reader;
+        $this->type = $type;
         $this->data = $this->getData();
     }
     
     protected function getData()
     {
-        $data = [];
-        $types = $this->reader->contentSection('autoload', []);
-        foreach ($types as $name => $content) {
-            $data = array_merge($data, $content);
-        }
+        $types = $this->reader->contentSection(self::SECTION_KEY, []);
         
-        return $data;
+        return isset($types[$this->type]) ? $types[$this->type] : [];
     }
     
     public function rewind()
@@ -39,7 +44,7 @@ class AutoloadSection implements Iterator
     
     public function current()
     {
-        return new Autoload($this->reader, $this->key(), current($this->data));
+        return new Autoload($this->reader, $this->key(), current($this->data), $this->type);
     }
     
     public function key()
@@ -55,5 +60,16 @@ class AutoloadSection implements Iterator
     public function valid()
     {
         return key($this->data) !== null;
+    }
+    
+    public function add(Autoload $autoload)
+    {
+        $data = $this->reader->contentSection(self::SECTION_KEY, []);
+        
+        $data[$autoload->type][$autoload->namespace] = $autoload->source;
+        
+        $autoload->reader->updateSection(self::SECTION_KEY, $data);
+        
+        return $autoload->reader;
     }
 }

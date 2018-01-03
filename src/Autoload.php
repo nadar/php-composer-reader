@@ -4,16 +4,19 @@ namespace Nadar\PhpComposerReader;
 
 class Autoload
 {
-    protected $reader;
+    public $reader;
     
     public $namespace;
     
     public $source;
     
-    public function __construct(ComposerReaderInterface $reader, $namespace, $source)
+    public $type;
+    
+    public function __construct(ComposerReaderInterface $reader, $namespace, $source, $type)
     {
         $this->reader = $reader;
         $this->namespace = $namespace;
         $this->source = $source;
+        $this->type = $type;
     }
 }

@@ -30,17 +30,28 @@ $reader = new ComposerReader('path/to/composer.json');
 $section = new RequireSection($reader);
 
 foreach($section as $package) {
-    echo $package->name . ' with ' . $package->constriant;
+    echo $package->name . ' with ' . $package->constraint;
 }
 ```
 
-Get autoloading section data (psr0 and psr4 are merged together)
+Get autoloading section data.
 
 ```php
 $reader = new ComposerReader('path/to/composer.json');
-$section = new AutoloadSection($reader);
+$section = new AutoloadSection($reader, AutoloadSection::TYPE_PSR4);
 
 foreach ($section as $autoload) {
     echo $autoload->namespace . ' with ' . $autoload->source;
 }
+```
+
+Add and save new autoload data
+
+```php
+$reader = new ComposerReader('path/to/composer.json');
+
+$new = new Autoload($reader, 'Foo\\Bar\\', 'src/foo/bar', AutoloadSection::TYPE_PSR4);
+
+$section = new AutoloadSection($reader);
+$section->add($new)->save();
 ```

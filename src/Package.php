@@ -9,7 +9,7 @@ namespace Nadar\PhpComposerReader;
  */
 class Package
 {
-    protected $reader;
+    public $reader;
     
     public $name;
     

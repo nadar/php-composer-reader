@@ -10,4 +10,8 @@ namespace Nadar\PhpComposerReader;
 interface ComposerReaderInterface
 {
     public function contentSection($section, $defaultValue);
+    
+    public function updateSection($section, $data);
+    
+    public function save();
 }

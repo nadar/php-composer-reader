@@ -39,4 +39,24 @@ class ComposerReaderTest extends ComposerReaderTestCase
         $this->expectException("Exception");
         $json->getContent();
     }
+    
+    public function testWriteSection()
+    {
+        $filename = getcwd() . '/tests/' . uniqid() . '.json';
+        $file = file_put_contents($filename, "{}");
+        $json = new ComposerReader($filename);
+        $json->updateSection('foobar', ['hello' => 'world']);
+        $json->getContent();
+        $this->assertTrue($json->save());
+        
+        $newreader = new ComposerReader($filename);
+        
+        $this->assertSame([
+            'foobar' => [
+                'hello' => 'world',
+            ]
+        ], $newreader->getContent());
+        
+        unlink($filename);
+    }
 }
