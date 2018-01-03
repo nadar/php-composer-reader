@@ -4,6 +4,11 @@ namespace Nadar\PhpComposerReader;
 
 use Exception;
 
+/**
+ * Composer Reder Object.
+ * 
+ * @author Basil Suter <basil@nadar.io>
+ */
 class ComposerReader implements ComposerReaderInterface
 {
     public $file;
