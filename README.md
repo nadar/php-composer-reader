@@ -1,10 +1,10 @@
-# php-composer-reader
+# Composer read and manipulate library for PHP
 
-A PHP library to manipulate and read the composer.json file.
+A PHP library to manipulate and read the composer.json file, free from any depencies.
 
 ## Usage
 
-Load the Reader
+Load the composer.json file into the ComposerReader:
 
 ```php
 require 'vendor/autoload';
@@ -23,7 +23,7 @@ if (!$reader->canWrite()) {
 var_dump($reader->getContent());
 ```
 
-Get require section data
+Get an array of objects for each Package in the require section of the composer.json file:
 
 ```php
 $reader = new ComposerReader('path/to/composer.json');
@@ -34,7 +34,7 @@ foreach($section as $package) {
 }
 ```
 
-Get autoloading section data.
+Get an array of objects for each PSR defintion in the autoload section of the composer.json file:
 
 ```php
 $reader = new ComposerReader('path/to/composer.json');
@@ -45,7 +45,7 @@ foreach ($section as $autoload) {
 }
 ```
 
-Add and save new autoload data
+Add a new psr autoload definition into an existing composer.json file and save it:
 
 ```php
 $reader = new ComposerReader('path/to/composer.json');
