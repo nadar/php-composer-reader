@@ -7,7 +7,7 @@ php:
   - 7.2
   - nightly
 before_script:
-  - if [[ "$TRAVIS_PHP_VERSION" == "7.1" ]]; then PHPUNIT_FLAGS="--coverage-clover clover.xml"; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == "7.1" ]]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
