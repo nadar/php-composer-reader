@@ -9,14 +9,12 @@ php:
   - 7.2
   - hhvm
   - nightly
-install:
-  - travis_retry composer self-update && composer --version
-  - travis_retry composer install --prefer-dist --no-interaction
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - bundle exec rspec
+  - composer install --prefer-dist --no-interaction
+  - phpunit tests
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
