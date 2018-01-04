@@ -15,4 +15,4 @@ script:
   - composer install --prefer-dist --no-interaction
   - vendor/bin/phpunit --verbose tests/ $PHPUNIT_FLAGS
 after_script:
-  - if [[ "$TRAVIS_PHP_VERSION" == "7.1" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == "7.1" ]]; then ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT; fi
