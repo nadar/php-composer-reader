@@ -3,18 +3,16 @@ env:
     - CC_TEST_REPORTER_ID=787a2f89b15c637323c7340d65ec17e898ac44480706b4b4122ea040c2a88f1d
 language: php
 php:
-  - 5.6
-  - 7.0
   - 7.1
   - 7.2
-  - hhvm
   - nightly
 before_script:
+  - if [[ "$TRAVIS_PHP_VERSION" == "7.1" ]]; then PHPUNIT_FLAGS="--coverage-clover coverage.xml"; fi
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
   - composer install --prefer-dist --no-interaction
-  - vendor/bin/phpunit --verbose tests/
+  - vendor/bin/phpunit --verbose tests/ $PHPUNIT_FLAGS
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - if [[ "$TRAVIS_PHP_VERSION" == "7.1" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
