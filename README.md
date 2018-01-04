@@ -1,4 +1,8 @@
-# Composer read and manipulate library for PHP
+# Read and manipulate the composer.json file
+
+[![Latest Stable Version](https://poser.pugx.org/nadar/php-composer-reader/v/stable)](https://packagist.org/packages/nadar/php-composer-reader)
+[![Total Downloads](https://poser.pugx.org/nadar/php-composer-reader/downloads)](https://packagist.org/packages/nadar/php-composer-reader)
+[![License](https://poser.pugx.org/nadar/php-composer-reader/license)](https://packagist.org/packages/nadar/php-composer-reader)
 
 A PHP library to manipulate and read the **composer.json** file, free from any dependencies.
 
