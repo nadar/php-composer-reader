@@ -6,8 +6,9 @@ use Iterator;
 
 /**
  * Require Section Iterator.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
  */
 class RequireSection implements Iterator
 {
@@ -17,7 +18,7 @@ class RequireSection implements Iterator
     
     public function __construct(ComposerReaderInterface $reader)
     {
-        $this->reader = $reader;    
+        $this->reader = $reader;
         $this->data = $this->getData();
     }
     

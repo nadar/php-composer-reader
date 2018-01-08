@@ -64,14 +64,16 @@ class ComposerReaderTest extends ComposerReaderTestCase
     public function testWriteSectionWithAutoloadData()
     {
         $filename = getcwd() . '/tests/' . uniqid('als') . '.json';
-        $file = file_put_contents($filename, 
+        $file = file_put_contents(
+            $filename,
 '{
     "autoload": {
         "psr-4": {
             "luya\\\": "core/"
         }
     }
-}');
+}'
+        );
         $json = new ComposerReader($filename);
         
         $al = new Autoload($json, '\\Foo\Post\\', 'src/goes/here', 'psr-4');

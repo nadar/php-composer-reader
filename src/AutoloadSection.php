@@ -8,6 +8,7 @@ use Iterator;
  * Require Section Iterator.
  *
  * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
  */
 class AutoloadSection implements Iterator
 {
@@ -80,8 +81,7 @@ class AutoloadSection implements Iterator
         $ensure = [];
         foreach ($data as $type => $items) {
             foreach ($items as $ns => $src) {
-                
-                $slashable = preg_replace('#\\+#','\\', $ns);
+                $slashable = preg_replace('#\\+#', '\\', $ns);
                 
                 $ensure[$type][$slashable] = $src;
             }
