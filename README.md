@@ -1,5 +1,6 @@
 # Read and manipulate the composer.json file
 
+[![Build Status](https://travis-ci.org/nadar/php-composer-reader.svg?branch=master)](https://travis-ci.org/nadar/php-composer-reader)
 [![Latest Stable Version](https://poser.pugx.org/nadar/php-composer-reader/v/stable)](https://packagist.org/packages/nadar/php-composer-reader)
 [![Total Downloads](https://poser.pugx.org/nadar/php-composer-reader/downloads)](https://packagist.org/packages/nadar/php-composer-reader)
 [![License](https://poser.pugx.org/nadar/php-composer-reader/license)](https://packagist.org/packages/nadar/php-composer-reader)
