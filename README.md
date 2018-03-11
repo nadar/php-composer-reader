@@ -55,10 +55,13 @@ foreach ($section as $autoload) {
 Add a new psr autoload definition into an existing composer.json file and save it:
 
 ```php
+// create reader
 $reader = new ComposerReader('path/to/composer.json');
 
+// generate new autoload section object
 $new = new Autoload($reader, 'Foo\\Bar\\', 'src/foo/bar', AutoloadSection::TYPE_PSR4);
 
+// store the new autoload object into the autoload section
 $section = new AutoloadSection($reader);
 $section->add($new)->save();
 ```
