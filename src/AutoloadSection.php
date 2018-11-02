@@ -10,11 +10,9 @@ use Iterator;
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
-class AutoloadSection implements Iterator
+class AutoloadSection extends DataIterator implements Iterator
 {
-    public $reader;
-    
-    protected $data;
+    protected $reader;
     
     protected $type;
     
@@ -28,39 +26,25 @@ class AutoloadSection implements Iterator
     {
         $this->reader = $reader;
         $this->type = $type;
-        $this->data = $this->getData();
+        $this->loadData();
     }
     
-    protected function getData()
+    /**
+     * @inheritDoc
+     */
+    public function createIteratorItem()
+    {
+        return new Autoload($this->reader, $this->key(), current($this->data), $this->type);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function assignIteratorData()
     {
         $types = $this->reader->contentSection(self::SECTION_KEY, []);
         
         return isset($types[$this->type]) ? $types[$this->type] : [];
-    }
-    
-    public function rewind()
-    {
-        return reset($this->data);
-    }
-    
-    public function current()
-    {
-        return new Autoload($this->reader, $this->key(), current($this->data), $this->type);
-    }
-    
-    public function key()
-    {
-        return key($this->data);
-    }
-    
-    public function next()
-    {
-        return next($this->data);
-    }
-    
-    public function valid()
-    {
-        return key($this->data) !== null;
     }
     
     public function add(Autoload $autoload)

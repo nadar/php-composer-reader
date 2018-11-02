@@ -145,7 +145,7 @@ class ComposerReader implements ComposerReaderInterface
      * $reader->runCommand('dump-autoload'); // equals to `composer dump-autoload`
      * ```
      *
-     * @param unknown $command
+     * @param string $command
      * @return boolean
      */
     public function runCommand($command)
@@ -224,7 +224,7 @@ class ComposerReader implements ComposerReaderInterface
     /**
      * Handle json parsing errors.
      *
-     * @param unknown $error
+     * @param integer $error
      * @throws Exception
      */
     protected function handleJsonError($error)

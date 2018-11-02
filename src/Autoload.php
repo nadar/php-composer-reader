@@ -4,6 +4,8 @@ namespace Nadar\PhpComposerReader;
 
 /**
  * Autoload Object.
+ * 
+ * A autoload or autoload-dev object.
  *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
