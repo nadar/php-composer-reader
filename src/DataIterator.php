@@ -7,26 +7,26 @@ use Countable;
 
 /**
  * Data Iterator.
- * 
+ *
  * This class mainly helps to generate the itrator for a given section. The `loadData()` method must be run in
  * order to retrieve data.
- * 
+ *
  * ```php
  * public function createIteratorItem()
  * {
  *    return new Package($this->reader, $this->key(), current($this->data));
  * }
  * ```
- * 
+ *
  * ```php
  * public function assignIteratorData()
  * {
  *      return $this->reader->contentSection('require', []);
  * }
  * ```
- * 
+ *
  * run `loadData()` in constructor.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.1.0
  */
@@ -36,7 +36,7 @@ abstract class DataIterator implements Iterator, Countable
 
     /**
      * Assign the data.
-     * 
+     *
      * Returns an array with data which should be assigned to the iterator.
      *
      * @return array
@@ -57,8 +57,8 @@ abstract class DataIterator implements Iterator, Countable
      */
     public function loadData()
     {
-        $this->data = $this->assignIteratorData();   
-    } 
+        $this->data = $this->assignIteratorData();
+    }
 
     /**
      * @inheritDoc

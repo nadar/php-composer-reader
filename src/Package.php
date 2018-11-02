@@ -6,12 +6,11 @@ use Composer\Semver\Semver;
 use Composer\Semver\VersionParser;
 use Composer\Semver\Comparator;
 
-
 /**
  * Package Object.
  *
  * Package details which used for require and require-dev sections.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
