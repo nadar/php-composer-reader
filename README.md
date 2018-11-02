@@ -14,7 +14,7 @@ A PHP library to manipulate and read the **composer.json** file, free from any d
 Install via Composer
 
 ``` bash
-$ composer require nadar/php-composer-reader
+composer require nadar/php-composer-reader
 ```
 
 ## Usage
