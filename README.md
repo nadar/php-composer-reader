@@ -7,13 +7,13 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3d695b2ba5d4298e28fe/test_coverage)](https://codeclimate.com/github/nadar/php-composer-reader/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3d695b2ba5d4298e28fe/maintainability)](https://codeclimate.com/github/nadar/php-composer-reader/maintainability)
 
-A PHP library to manipulate and read the **composer.json** file, free from any dependencies.
+A PHP library to manipulate and read the **composer.json** files.
 
 ## Install
 
 Install via Composer
 
-``` bash
+```sh
 composer require nadar/php-composer-reader
 ```
 
@@ -46,6 +46,11 @@ $section = new RequireSection($reader);
 
 foreach($section as $package) {
     echo $package->name . ' with ' . $package->constraint;
+
+    // check if package version gerate then a version constraint.
+    if ($package->greaterThan('^6.5')) {
+        echo "A lot of releases already!";
+    }
 }
 ```
 
