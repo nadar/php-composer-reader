@@ -106,4 +106,13 @@ class ComposerReaderTest extends ComposerReaderTestCase
         
         $this->assertTrue($r);
     }
+    
+    public function testRemove()
+    {
+        $reader = new ComposerReader($this->getValidJson());
+
+        $reader->removeSection('autoload');
+
+        $this->assertArrayNotHasKey('autoload', $reader->getContent());
+    }
 }

@@ -29,6 +29,15 @@ interface ComposerReaderInterface
     public function updateSection($section, $data);
     
     /**
+     * Remove a given section.
+     *
+     * This will remove the whole section!
+     *
+     * @param string $section
+     */
+    public function removeSection($section);
+    
+    /**
      * Save the current Data.
      *
      * Saves the current json data into the composer.json of the given reader.

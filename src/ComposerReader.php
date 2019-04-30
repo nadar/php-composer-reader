@@ -134,6 +134,20 @@ class ComposerReader implements ComposerReaderInterface
         
         $this->_content = $content;
     }
+        
+    /**
+     * @inheritdoc
+     */
+    public function removeSection($section)
+    {
+        $content = $this->getContent();
+        
+        if(isset($content[$section])) {
+            unset ($content[$section]);
+        }
+        
+        $this->_content = $content;
+    }
     
     /**
      * Run a composer command in the given composer.json.
