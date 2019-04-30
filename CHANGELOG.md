@@ -4,8 +4,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## in progress
+## 1.2.0 (30. April 2019)
 
++ Added feature for whole section removal
 + Added tests for php 7.3
 
 ## 1.1.0 (21. December 2018)
