@@ -8,6 +8,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 + Added tests for php 7.3
 
+## 1.2.0 (30. April 2019)
++ Added feature for whole section removal
+
 ## 1.1.0 (21. December 2018)
 
 + Add version constraint compare function.
