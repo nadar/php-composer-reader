@@ -34,6 +34,7 @@ interface ComposerReaderInterface
      * This will remove the whole section!
      *
      * @param string $section
+     * @since 1.2.0
      */
     public function removeSection($section);
     
