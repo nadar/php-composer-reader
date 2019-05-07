@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.3.0
+
++ Added AutoloadDevSection
++ Fixed bug in composer reader when file is unable to write.
++ Remove unused Iterator object in section iterators.
+
 ## 1.2.0 (30. April 2019)
 
 + Added feature for whole section removal

@@ -9,5 +9,10 @@
         "psr-4": {
             "Nadar\\PhpComposerReader\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TEST": "test/"
+        }
     }
 }

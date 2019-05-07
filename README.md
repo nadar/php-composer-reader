@@ -38,6 +38,8 @@ if (!$reader->canWrite()) {
 var_dump($reader->getContent());
 ```
 
+### Read section data
+
 Get an array of objects for each Package in the require section of the composer.json file:
 
 ```php
@@ -65,10 +67,21 @@ foreach ($section as $autoload) {
 }
 ```
 
+There are a few built in commands to read certain sections from the [composer schema](https://getcomposer.org/doc/04-schema.md):
+
+|Section|Class
+|`require`|RequireSection
+|`require-dev`|RequireDevSection
+|`autoload`|AutoloadSection
+|`autoload-dev`|AutoloadDevSection
+
+All the other schema can be retrieved from the ComposerReader object trough: `$reader->contentSection('extra', null);`
+
+### Change section data
+
 Add a new psr autoload definition into an existing composer.json file and save it:
 
 ```php
-// create reader
 $reader = new ComposerReader('path/to/composer.json');
 
 // generate new autoload section object
@@ -78,3 +91,15 @@ $new = new Autoload($reader, 'Foo\\Bar\\', 'src/foo/bar', AutoloadSection::TYPE_
 $section = new AutoloadSection($reader);
 $section->add($new)->save();
 ```
+
+## Run commands
+
+In order to perform composer operations you can use the `runCommand()` method:
+
+```php
+$reader = new ComposerReader('path/to/composer.json');
+$reader->runCommand('dump-autoload'); // equals to `composer dump-autoload`
+```
+
+This will try to run the dump-autoload command on the specific composer.json file, of course this requires the the composer global binary
+is installed on the current system (install composer globally: https://getcomposer.org/doc/00-intro.md#globally)

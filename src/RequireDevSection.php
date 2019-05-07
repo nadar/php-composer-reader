@@ -2,15 +2,13 @@
 
 namespace Nadar\PhpComposerReader;
 
-use Iterator;
-
 /**
  * Require Dev Section Iterator.
  *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.1.0
  */
-class RequireDevSection extends DataIterator implements Iterator
+class RequireDevSection extends DataIterator
 {
     const SECTION_KEY = 'require-dev';
 
@@ -27,7 +25,7 @@ class RequireDevSection extends DataIterator implements Iterator
      */
     public function assignIteratorData()
     {
-        return $this->reader->contentSection(self::SECTION_KEY, []);
+        return $this->reader->contentSection(static::SECTION_KEY, []);
     }
 
     /**

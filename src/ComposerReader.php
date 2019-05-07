@@ -77,7 +77,7 @@ class ComposerReader implements ComposerReaderInterface
     {
         if ($this->_content === null) {
             if (!$this->canRead()) {
-                throw new Exception("Unable to read config file {$this->file}.");
+                throw new Exception("Unable to read config file '{$this->file}'.");
             }
             
             $buffer = $this->getFileContent($this->file);
@@ -92,12 +92,12 @@ class ComposerReader implements ComposerReaderInterface
      *
      * @param array $content The content to write.
      * @throws Exception
-     * @return boolean Whether writting was successfull or not.
+     * @return boolean Whether writing was successfull or not.
      */
     public function writeContent(array $content)
     {
         if (!$this->canWrite()) {
-            throw new Exception("Unable to write file {this->file}.");
+            throw new Exception("Unable to write config file '{$this->file}'.");
         }
         
         $json = $this->jsonEncode($content);

@@ -2,7 +2,6 @@
 
 namespace Nadar\PhpComposerReader;
 
-use Iterator;
 
 /**
  * Require Section Iterator.
@@ -10,7 +9,7 @@ use Iterator;
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
-class AutoloadSection extends DataIterator implements Iterator
+class AutoloadSection extends DataIterator
 {
     protected $reader;
     
@@ -42,24 +41,36 @@ class AutoloadSection extends DataIterator implements Iterator
      */
     public function assignIteratorData()
     {
-        $types = $this->reader->contentSection(self::SECTION_KEY, []);
+        $types = $this->reader->contentSection(static::SECTION_KEY, []);
         
         return isset($types[$this->type]) ? $types[$this->type] : [];
     }
     
+    /**
+     * Add a new Autoload object int othe section.
+     *
+     * @param Autoload $autoload
+     * @return ComposerReaderInterface
+     */
     public function add(Autoload $autoload)
     {
-        $data = $this->reader->contentSection(self::SECTION_KEY, []);
+        $data = $this->reader->contentSection(static::SECTION_KEY, []);
         
         $data[$autoload->type][$autoload->namespace] = $autoload->source;
         
         $data = $this->ensureDoubleBackslash($data);
         
-        $autoload->reader->updateSection(self::SECTION_KEY, $data);
+        $autoload->reader->updateSection(static::SECTION_KEY, $data);
         
         return $autoload->reader;
     }
     
+    /**
+     * Ensure double black slashes of input data.
+     *
+     * @param [type] $data
+     * @return void
+     */
     private function ensureDoubleBackslash($data)
     {
         $ensure = [];
