@@ -70,6 +70,7 @@ foreach ($section as $autoload) {
 There are a few built in commands to read certain sections from the [composer schema](https://getcomposer.org/doc/04-schema.md):
 
 |Section|Class
+|-------|-----
 |`require`|RequireSection
 |`require-dev`|RequireDevSection
 |`autoload`|AutoloadSection
