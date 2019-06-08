@@ -1,6 +1,6 @@
 <?php
 
-namespace Nadar\PhpComposerReader;
+namespace Nadar\PhpComposerReader\Interfaces;
 
 /**
  * Composer Reader Interface.

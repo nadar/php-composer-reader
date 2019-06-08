@@ -2,9 +2,9 @@
 
 namespace Nadar\PhpComposerReader;
 
-use Composer\Semver\Semver;
-use Composer\Semver\VersionParser;
 use Composer\Semver\Comparator;
+use Nadar\PhpComposerReader\Interfaces\SectionInstanceInterface;
+use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
 
 /**
  * Package Object.
@@ -14,7 +14,7 @@ use Composer\Semver\Comparator;
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
-class Package
+class Package implements SectionInstanceInterface
 {
     public $reader;
     

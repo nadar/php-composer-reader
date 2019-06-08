@@ -2,6 +2,9 @@
 
 namespace Nadar\PhpComposerReader;
 
+use Nadar\PhpComposerReader\Interfaces\ManipulationInterface;
+use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
+use Nadar\PhpComposerReader\Interfaces\SectionInstanceInterface;
 
 /**
  * Require Section Iterator.
@@ -9,7 +12,7 @@ namespace Nadar\PhpComposerReader;
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
-class AutoloadSection extends DataIterator
+class AutoloadSection extends DataIterator implements ManipulationInterface
 {
     protected $reader;
     
@@ -47,31 +50,30 @@ class AutoloadSection extends DataIterator
     }
     
     /**
-     * Add a new Autoload object int othe section.
-     *
-     * @param Autoload $autoload
-     * @return ComposerReaderInterface
+     * {@inheritDoc}
      */
-    public function add(Autoload $autoload)
+    public function add(SectionInstanceInterface $sectionInstance): ComposerReaderInterface
     {
+        /** @var array $data */
         $data = $this->reader->contentSection(static::SECTION_KEY, []);
         
-        $data[$autoload->type][$autoload->namespace] = $autoload->source;
+        /** @var Autoload $sectionInstance */
+        $data[$sectionInstance->type][$sectionInstance->namespace] = $sectionInstance->source;
         
         $data = $this->ensureDoubleBackslash($data);
         
-        $autoload->reader->updateSection(static::SECTION_KEY, $data);
+        $sectionInstance->reader->updateSection(static::SECTION_KEY, $data);
         
-        return $autoload->reader;
+        return $sectionInstance->reader;
     }
     
     /**
      * Ensure double black slashes of input data.
      *
-     * @param [type] $data
-     * @return void
+     * @param array $data An array with autoload entries
+     * @return array
      */
-    private function ensureDoubleBackslash($data)
+    private function ensureDoubleBackslash(array $data)
     {
         $ensure = [];
         foreach ($data as $type => $items) {

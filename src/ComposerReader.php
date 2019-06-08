@@ -3,6 +3,7 @@
 namespace Nadar\PhpComposerReader;
 
 use Exception;
+use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
 
 /**
  * Composer Reader Object.
@@ -106,7 +107,7 @@ class ComposerReader implements ComposerReaderInterface
     }
     
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function save()
     {
@@ -114,7 +115,7 @@ class ComposerReader implements ComposerReaderInterface
     }
     
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function contentSection($section, $defaultValue)
     {
@@ -124,7 +125,7 @@ class ComposerReader implements ComposerReaderInterface
     }
     
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function updateSection($section, $data)
     {
@@ -136,7 +137,7 @@ class ComposerReader implements ComposerReaderInterface
     }
         
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function removeSection($section)
     {
