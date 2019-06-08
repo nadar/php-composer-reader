@@ -48,4 +48,18 @@ class AutoloadSectionTest extends ComposerReaderTestCase
             'psr-4' => ['Nadar\\PhpComposerReader\\' => 'src/', 'Foo\\Bar\\' => 'src/foo/bar']
         ], $r['autoload']);
     }
+
+    public function testSave()
+    {
+        $json = $this->generateTemporaryJson(['name' => 'barfoo']);
+        $reader = new ComposerReader($json);
+        
+        $new = new Autoload($reader, '\\FF', 'path/to', AutoloadSection::TYPE_PSR4);
+        $section = new AutoloadSection($reader);
+        $r = $section->add($new)->save();
+
+        $this->assertTrue($r);
+
+        $this->removeTemporaryJson($json);
+    }
 }

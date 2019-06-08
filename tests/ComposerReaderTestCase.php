@@ -25,4 +25,19 @@ class ComposerReaderTestCase extends TestCase
     {
         return getcwd() . '/tests/composer.json';
     }
+
+    public function generateTemporaryJson(array $content)
+    {
+        $fileName = uniqid('c');
+        $dir = getcwd();
+        $path = $dir . DIRECTORY_SEPARATOR . $fileName;
+        file_put_contents($path, json_encode($content));
+
+        return $path;
+    }
+
+    public function removeTemporaryJson($filePath)
+    {
+        unlink($filePath);
+    }
 }
