@@ -3,7 +3,7 @@
     "description": "Read and manipulate composer.json",
     "type": "library",
     "require-dev": {
-        "phpunit/phpunit": "^6.5"
+        "phpunit/phpunit": "6.0.0"
     },
     "license": "MIT",
     "authors": [
