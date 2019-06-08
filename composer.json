@@ -25,5 +25,9 @@
             "Nadar\\PhpComposerReader\\Tests\\": "tests/"
         }
     },
-    "platform" : {"php": "7.1"}
+    "config": {	
+        "platform": {	
+            "php": "7.1"	
+        }	
+    }
 }
