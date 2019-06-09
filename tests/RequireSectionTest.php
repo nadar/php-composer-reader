@@ -53,4 +53,15 @@ class RequireSectionTest extends ComposerReaderTestCase
 
         $this->removeTemporaryJson($json);
     }
+
+    public function testAddAndRemove()
+    {
+        $reader = new ComposerReader($this->getValidJson());
+        $section = new RequireSection($reader);
+
+        $new = new Package($reader, 'xyz', '1.0.0');
+
+        $this->assertTrue($section->add($new)->save());
+        $this->assertTrue($section->remove($new->name)->save());
+    }
 }

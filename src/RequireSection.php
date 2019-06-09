@@ -18,6 +18,11 @@ class RequireSection extends DataIterator implements ManipulationInterface
 
     protected $reader;
     
+    /**
+     * Constructor
+     *
+     * @param ComposerReaderInterface $reader
+     */
     public function __construct(ComposerReaderInterface $reader)
     {
         $this->reader = $reader;
@@ -49,8 +54,25 @@ class RequireSection extends DataIterator implements ManipulationInterface
         /** @var Package $sectionInstance */
         $data[$sectionInstance->name] = $sectionInstance->constraint;
         
-        $sectionInstance->reader->updateSection(static::SECTION_KEY, $data);
+        $this->reader->updateSection(static::SECTION_KEY, $data);
         
-        return $sectionInstance->reader;
+        return $this->reader;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function remove($sectionIdentifier): ComposerReaderInterface
+    {
+        /** @var array $data */
+        $data = $this->reader->contentSection(static::SECTION_KEY, []);
+
+        if (!array_key_exists($sectionIdentifier, $data)) {
+            throw new Exception("Unable to find the given section key '{$sectionIdentifier}' to remove.");
+        }
+        unset($data[$sectionIdentifier]);
+        $this->reader->updateSection(static::SECTION_KEY, $data);
+
+        return $this->reader;
     }
 }

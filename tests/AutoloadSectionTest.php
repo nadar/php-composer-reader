@@ -62,4 +62,15 @@ class AutoloadSectionTest extends ComposerReaderTestCase
 
         $this->removeTemporaryJson($json);
     }
+
+    public function testAddAndRemove()
+    {
+        $reader = new ComposerReader($this->getValidJson());
+
+        $section = new AutoloadSection($reader);
+        $new = new Autoload($reader, 'Foo\\Bar\\', 'src/foo/bar', AutoloadSection::TYPE_PSR4);
+
+        $this->assertTrue($section->add($new)->save());
+        $this->assertTrue($section->remove($new->namespace)->save());
+    }
 }

@@ -19,4 +19,12 @@ interface ManipulationInterface
      * @return ComposerReaderInterface
      */
     public function add(SectionInstanceInterface $sectionInstance): ComposerReaderInterface;
+
+    /**
+     * Removes a given section entry based on the identifier.
+     * 
+     * @param string $sectionIdentifier The section identifer which is the namespace or the package name
+     * @return ComposerReaderInterface
+     */
+    public function remove($sectionIdentifier): ComposerReaderInterface;
 }

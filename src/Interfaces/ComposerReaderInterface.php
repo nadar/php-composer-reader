@@ -42,6 +42,8 @@ interface ComposerReaderInterface
      * Save the current Data.
      *
      * Saves the current json data into the composer.json of the given reader.
+     * 
+     * @return boolean Whether saving was successfull or not.
      */
     public function save();
 }

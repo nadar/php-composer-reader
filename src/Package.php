@@ -22,6 +22,13 @@ class Package implements SectionInstanceInterface
     
     public $constraint;
     
+    /**
+     * Constructor
+     *
+     * @param ComposerReaderInterface $reader
+     * @param string $name
+     * @param string $constraint
+     */
     public function __construct(ComposerReaderInterface $reader, $name, $constraint)
     {
         $this->reader = $reader;

@@ -2,6 +2,7 @@
 
 namespace Nadar\PhpComposerReader;
 
+use Exception;
 use Nadar\PhpComposerReader\Interfaces\ManipulationInterface;
 use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
 use Nadar\PhpComposerReader\Interfaces\SectionInstanceInterface;
@@ -24,6 +25,12 @@ class AutoloadSection extends DataIterator implements ManipulationInterface
     
     const SECTION_KEY = 'autoload';
     
+    /**
+     * Constuctor
+     *
+     * @param ComposerReaderInterface $reader
+     * @param string $type
+     */
     public function __construct(ComposerReaderInterface $reader, $type = self::TYPE_PSR4)
     {
         $this->reader = $reader;
@@ -62,11 +69,30 @@ class AutoloadSection extends DataIterator implements ManipulationInterface
         
         $data = $this->ensureDoubleBackslash($data);
         
-        $sectionInstance->reader->updateSection(static::SECTION_KEY, $data);
+        $this->reader->updateSection(static::SECTION_KEY, $data);
         
-        return $sectionInstance->reader;
+        return $this->reader;
     }
     
+    /**
+     * {@inheritDoc}
+     */
+    public function remove($sectionIdentifier): ComposerReaderInterface
+    {
+        /** @var array $data */
+        $data = $this->reader->contentSection(static::SECTION_KEY, []);
+
+        foreach ($data as $type => $values) {
+            if (array_key_exists($sectionIdentifier, $values)) {
+                unset($data[$type][$sectionIdentifier]);
+            }
+        }
+        
+        $this->reader->updateSection(static::SECTION_KEY, $data);
+
+        return $this->reader;
+    }
+
     /**
      * Ensure double black slashes of input data.
      *

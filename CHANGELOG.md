@@ -6,7 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.3.0
 
-+ [#6](https://github.com/nadar/php-composer-reader/issues/6) Added add method for require and require-dev section.
++ [#7](https://github.com/nadar/php-composer-reader/issues/7) Added remove() method for require(-dev) and autoload(-dev) sections.
++ [#6](https://github.com/nadar/php-composer-reader/issues/6) Added add() method for require and require-dev sections.
 + Moved interfaces into interface folder.
 + Added AutoloadDevSection
 + Fixed bug in composer reader when file is unable to write.
