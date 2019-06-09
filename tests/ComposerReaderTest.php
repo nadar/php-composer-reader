@@ -115,4 +115,18 @@ class ComposerReaderTest extends ComposerReaderTestCase
 
         $this->assertArrayNotHasKey('autoload', $reader->getContent());
     }
+
+    public function testGetContentException()
+    {
+        $reader = new ComposerReader('noexisting.json');
+        $this->expectException('\Exception');
+        $reader->getContent();
+    }
+
+    public function testWriteContentException()
+    {
+        $reader = new ComposerReader('noexisting.json');
+        $this->expectException('\Exception');
+        $reader->writeContent(['foo' => 'bar']);
+    }
 }

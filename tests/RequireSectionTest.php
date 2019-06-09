@@ -5,6 +5,7 @@ namespace Nadar\PhpComposerReader\Tests;
 use Nadar\PhpComposerReader\ComposerReader;
 use Nadar\PhpComposerReader\RequireSection;
 use Nadar\PhpComposerReader\Package;
+use Nadar\PhpComposerReader\RequireDevSection;
 
 class RequireSectionTest extends ComposerReaderTestCase
 {
@@ -26,6 +27,17 @@ class RequireSectionTest extends ComposerReaderTestCase
             $this->assertTrue($package->equalTo('^6.5'));
             $this->assertTrue($package->notEqualTo('^6.4'));
         }
+
+        $this->assertSame(1, count($section));
+    }
+
+    public function testRequireDevSection()
+    {
+        $reader = new ComposerReader($this->getValidJson());
+        
+        $section = new RequireDevSection($reader);
+
+        $this->assertSame(0, count($section));
     }
 
     public function testAddFunctionOfRequireSection()
