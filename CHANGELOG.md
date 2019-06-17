@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.3.0
+## 1.3.0 (17. June 2019)
 
 + [#7](https://github.com/nadar/php-composer-reader/issues/7) Added remove() method for require(-dev) and autoload(-dev) sections.
 + [#6](https://github.com/nadar/php-composer-reader/issues/6) Added add() method for require and require-dev sections.
