@@ -1,4 +1,4 @@
-# Read and manipulate the composer.json file
+# PHP Composer.json Reader
 
 ![Tests](https://github.com/nadar/php-composer-reader/workflows/Tests/badge.svg)
 [![Latest Stable Version](https://poser.pugx.org/nadar/php-composer-reader/v/stable)](https://packagist.org/packages/nadar/php-composer-reader)
@@ -7,7 +7,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3d695b2ba5d4298e28fe/test_coverage)](https://codeclimate.com/github/nadar/php-composer-reader/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3d695b2ba5d4298e28fe/maintainability)](https://codeclimate.com/github/nadar/php-composer-reader/maintainability)
 
-A PHP library to manipulate and read the **composer.json** files.
+A small PHP library to manipulated and read the **composer.json** file. Add new sections, see whether its writeable/readable or just get some informations from the composer schema like description, title, etc.
 
 ## Install
 
@@ -49,7 +49,7 @@ $section = new RequireSection($reader);
 foreach($section as $package) {
     echo $package->name . ' with ' . $package->constraint;
 
-    // check if package version gerate then a version constraint.
+    // check if the package version greater then a given version constraint.
     if ($package->greaterThan('^6.5')) {
         echo "A lot of releases already!";
     }
@@ -67,7 +67,7 @@ foreach ($section as $autoload) {
 }
 ```
 
-There are a few built in commands to read certain sections from the [composer schema](https://getcomposer.org/doc/04-schema.md):
+The following section readers are available for the [composer schema](https://getcomposer.org/doc/04-schema.md):
 
 |Section|Class
 |-------|-----
@@ -76,7 +76,7 @@ There are a few built in commands to read certain sections from the [composer sc
 |`autoload`|AutoloadSection
 |`autoload-dev`|AutoloadDevSection
 
-All the other schema can be retrieved from the ComposerReader object trough: `$reader->contentSection('extra', null);`
+All the other schema informationscan be retrieved from the ComposerReader object with: `$reader->contentSection('extra', null);`
 
 ### Change section data
 
@@ -102,5 +102,4 @@ $reader = new ComposerReader('path/to/composer.json');
 $reader->runCommand('dump-autoload'); // equals to `composer dump-autoload`
 ```
 
-This will try to run the dump-autoload command on the specific composer.json file, of course this requires the the composer global binary
-is installed on the current system (install composer globally: https://getcomposer.org/doc/00-intro.md#globally)
+This will try to run the dump-autoload command for the given composer.json file. **this requires a global installed composer command** on the system (install composer globally: https://getcomposer.org/doc/00-intro.md#globally)
