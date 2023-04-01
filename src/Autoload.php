@@ -2,8 +2,8 @@
 
 namespace Nadar\PhpComposerReader;
 
-use Nadar\PhpComposerReader\Interfaces\SectionInstanceInterface;
 use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
+use Nadar\PhpComposerReader\Interfaces\SectionInstanceInterface;
 
 /**
  * Autoload Object.
@@ -16,13 +16,13 @@ use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
 class Autoload implements SectionInstanceInterface
 {
     public $reader;
-    
+
     public $namespace;
-    
+
     public $source;
-    
+
     public $type;
-    
+
     /**
      * Autoload Section
      *

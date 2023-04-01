@@ -2,8 +2,8 @@
 
 namespace Nadar\PhpComposerReader;
 
-use Iterator;
 use Countable;
+use Iterator;
 
 /**
  * Data Iterator.
@@ -42,7 +42,7 @@ abstract class DataIterator implements Iterator, Countable
      * @return array
      */
     abstract public function assignIteratorData();
-    
+
     /**
      * Create the item for the current item.
      *
@@ -67,7 +67,7 @@ abstract class DataIterator implements Iterator, Countable
     {
         return $this->createIteratorItem();
     }
-    
+
     /**
      * @inheritDoc
      */
@@ -75,7 +75,7 @@ abstract class DataIterator implements Iterator, Countable
     {
         return reset($this->data);
     }
-    
+
     /**
      * @inheritDoc
      */
@@ -83,7 +83,7 @@ abstract class DataIterator implements Iterator, Countable
     {
         return key($this->data);
     }
-    
+
     /**
      * @inheritDoc
      */
@@ -91,7 +91,7 @@ abstract class DataIterator implements Iterator, Countable
     {
         return next($this->data);
     }
-    
+
     /**
      * @inheritDoc
      */

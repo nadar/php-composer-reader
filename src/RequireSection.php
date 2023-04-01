@@ -14,10 +14,10 @@ use Nadar\PhpComposerReader\Interfaces\SectionInstanceInterface;
  */
 class RequireSection extends DataIterator implements ManipulationInterface
 {
-    const SECTION_KEY = 'require';
+    public const SECTION_KEY = 'require';
 
     protected $reader;
-    
+
     /**
      * Constructor
      *
@@ -28,7 +28,7 @@ class RequireSection extends DataIterator implements ManipulationInterface
         $this->reader = $reader;
         $this->loadData();
     }
-    
+
     /**
      * @inheritDoc
      */
@@ -53,9 +53,9 @@ class RequireSection extends DataIterator implements ManipulationInterface
         $data = $this->reader->contentSection(static::SECTION_KEY, []);
         /** @var Package $sectionInstance */
         $data[$sectionInstance->name] = $sectionInstance->constraint;
-        
+
         $this->reader->updateSection(static::SECTION_KEY, $data);
-        
+
         return $this->reader;
     }
 

@@ -2,7 +2,6 @@
 
 namespace Nadar\PhpComposerReader;
 
-
 /**
  * Require Section Iterator.
  *
@@ -11,5 +10,5 @@ namespace Nadar\PhpComposerReader;
  */
 class AutoloadDevSection extends AutoloadSection
 {
-    const SECTION_KEY = 'autoload-dev';
+    public const SECTION_KEY = 'autoload-dev';
 }

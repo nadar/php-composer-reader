@@ -2,8 +2,6 @@
 
 namespace Nadar\PhpComposerReader;
 
-use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
-
 /**
  * Require Dev Section Iterator.
  *
@@ -12,5 +10,5 @@ use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
  */
 class RequireDevSection extends RequireSection
 {
-    const SECTION_KEY = 'require-dev';
+    public const SECTION_KEY = 'require-dev';
 }

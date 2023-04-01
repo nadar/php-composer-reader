@@ -17,7 +17,7 @@ class ComposerReader implements ComposerReaderInterface
      * @var string Contains the path to the composer.json file.
      */
     public $file;
-    
+
     /**
      * Create new ComposerReader instance by providing the path to the composer.json file.
      *
@@ -27,7 +27,7 @@ class ComposerReader implements ComposerReaderInterface
     {
         $this->file = $file;
     }
-    
+
     /**
      * Whether current composer.json file is readable or not.
      *
@@ -38,10 +38,10 @@ class ComposerReader implements ComposerReaderInterface
         if (is_file($this->file) && is_readable($this->file)) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Whether current composer.json file can be written or not.
      *
@@ -52,10 +52,10 @@ class ComposerReader implements ComposerReaderInterface
         if (is_file($this->file) && is_writable($this->file)) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Whether file can be written and read.
      *
@@ -65,9 +65,9 @@ class ComposerReader implements ComposerReaderInterface
     {
         return $this->canRead() && $this->canWrite();
     }
-    
+
     private $_content;
-    
+
     /**
      * The content of the json file as array.
      *
@@ -80,14 +80,14 @@ class ComposerReader implements ComposerReaderInterface
             if (!$this->canRead()) {
                 throw new Exception("Unable to read config file '{$this->file}'.");
             }
-            
+
             $buffer = $this->getFileContent($this->file);
             $this->_content = $this->jsonDecode($buffer);
         }
-        
+
         return $this->_content;
     }
-    
+
     /**
      * Write the content into the composer.json.
      *
@@ -100,12 +100,12 @@ class ComposerReader implements ComposerReaderInterface
         if (!$this->canWrite()) {
             throw new Exception("Unable to write config file '{$this->file}'.");
         }
-        
+
         $json = $this->jsonEncode($content);
-        
+
         return $this->writeFileContent($this->file, $json);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -113,43 +113,43 @@ class ComposerReader implements ComposerReaderInterface
     {
         return $this->writeContent($this->_content);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function contentSection($section, $defaultValue)
     {
         $content = $this->getContent();
-        
+
         return isset($content[$section]) ? $content[$section] : $defaultValue;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function updateSection($section, $data)
     {
         $content = $this->getContent();
-        
+
         $content[$section] = $data;
-        
+
         $this->_content = $content;
     }
-        
+
     /**
      * {@inheritDoc}
      */
     public function removeSection($section)
     {
         $content = $this->getContent();
-        
-        if(isset($content[$section])) {
-            unset ($content[$section]);
+
+        if (isset($content[$section])) {
+            unset($content[$section]);
         }
-        
+
         $this->_content = $content;
     }
-    
+
     /**
      * Run a composer command in the given composer.json.
      *
@@ -168,16 +168,16 @@ class ComposerReader implements ComposerReaderInterface
         $folder = dirname($this->file);
         $olddir = getcwd();
         chdir($folder);
-        
+
         ob_start();
         $output = null;
         $cmd = system('composer ' . $command, $output);
         $output = ob_end_clean();
         chdir($olddir);
-        
+
         return $cmd === false ? false : true;
     }
-    
+
     /**
      * Get the file content.
      *
@@ -188,7 +188,7 @@ class ComposerReader implements ComposerReaderInterface
     {
         return file_get_contents($file);
     }
-    
+
     /**
      * Write the file content.
      *
@@ -199,10 +199,10 @@ class ComposerReader implements ComposerReaderInterface
     protected function writeFileContent($file, $data)
     {
         $handler = file_put_contents($file, $data);
-        
+
         return $handler === false ? false : true;
     }
-    
+
     /**
      * Decodes a json string into php structure.
      *
@@ -213,10 +213,10 @@ class ComposerReader implements ComposerReaderInterface
     {
         $content = json_decode((string) $json, true);
         $this->handleJsonError(json_last_error());
-        
+
         return $content;
     }
-    
+
     /**
      * Encodes a php array structure into a json string.
      *
@@ -228,14 +228,14 @@ class ComposerReader implements ComposerReaderInterface
         set_error_handler(function () {
             $this->handleJsonError(JSON_ERROR_SYNTAX);
         }, E_WARNING);
-        
+
         $json = json_encode($data, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
         restore_error_handler();
         $this->handleJsonError(json_last_error());
-        
+
         return $json;
     }
-    
+
     /**
      * Handle json parsing errors.
      *
