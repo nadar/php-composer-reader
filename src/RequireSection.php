@@ -14,14 +14,15 @@ use Nadar\PhpComposerReader\Interfaces\SectionInstanceInterface;
  */
 class RequireSection extends DataIterator implements ManipulationInterface
 {
+    /**
+     * @var string
+     */
     public const SECTION_KEY = 'require';
 
     protected $reader;
 
     /**
      * Constructor
-     *
-     * @param ComposerReaderInterface $reader
      */
     public function __construct(ComposerReaderInterface $reader)
     {
@@ -68,8 +69,9 @@ class RequireSection extends DataIterator implements ManipulationInterface
         $data = $this->reader->contentSection(static::SECTION_KEY, []);
 
         if (!array_key_exists($sectionIdentifier, $data)) {
-            throw new Exception("Unable to find the given section key '{$sectionIdentifier}' to remove.");
+            throw new Exception(sprintf('Unable to find the given section key \'%s\' to remove.', $sectionIdentifier));
         }
+
         unset($data[$sectionIdentifier]);
         $this->reader->updateSection(static::SECTION_KEY, $data);
 

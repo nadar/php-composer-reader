@@ -10,5 +10,8 @@ namespace Nadar\PhpComposerReader;
  */
 class RequireDevSection extends RequireSection
 {
+    /**
+     * @var string
+     */
     public const SECTION_KEY = 'require-dev';
 }

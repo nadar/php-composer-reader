@@ -16,24 +16,29 @@ class AutoloadSection extends DataIterator implements ManipulationInterface
 {
     protected $reader;
 
-    protected $type;
-
+    /**
+     * @var string
+     */
     public const TYPE_PSR4 = 'psr-4';
 
+    /**
+     * @var string
+     */
     public const TYPE_PSR0 = 'psr-0';
 
+    /**
+     * @var string
+     */
     public const SECTION_KEY = 'autoload';
 
     /**
      * Constuctor
      *
-     * @param ComposerReaderInterface $reader
      * @param string $type
      */
-    public function __construct(ComposerReaderInterface $reader, $type = self::TYPE_PSR4)
+    public function __construct(ComposerReaderInterface $reader, protected $type = self::TYPE_PSR4)
     {
         $this->reader = $reader;
-        $this->type = $type;
         $this->loadData();
     }
 
@@ -52,7 +57,7 @@ class AutoloadSection extends DataIterator implements ManipulationInterface
     {
         $types = $this->reader->contentSection(static::SECTION_KEY, []);
 
-        return isset($types[$this->type]) ? $types[$this->type] : [];
+        return $types[$this->type] ?? [];
     }
 
     /**

@@ -14,9 +14,6 @@ interface ManipulationInterface
 {
     /**
      * Add a new Autoload object int othe section.
-     *
-     * @param SectionInstanceInterface $sectionInstance
-     * @return ComposerReaderInterface
      */
     public function add(SectionInstanceInterface $sectionInstance): ComposerReaderInterface;
 
@@ -24,7 +21,6 @@ interface ManipulationInterface
      * Removes a given section entry based on the identifier.
      *
      * @param string $sectionIdentifier The section identifer which is the namespace or the package name
-     * @return ComposerReaderInterface
      */
     public function remove($sectionIdentifier): ComposerReaderInterface;
 }

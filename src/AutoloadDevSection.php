@@ -10,5 +10,8 @@ namespace Nadar\PhpComposerReader;
  */
 class AutoloadDevSection extends AutoloadSection
 {
+    /**
+     * @var string
+     */
     public const SECTION_KEY = 'autoload-dev';
 }

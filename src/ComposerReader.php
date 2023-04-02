@@ -14,18 +14,12 @@ use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
 class ComposerReader implements ComposerReaderInterface
 {
     /**
-     * @var string Contains the path to the composer.json file.
-     */
-    public $file;
-
-    /**
      * Create new ComposerReader instance by providing the path to the composer.json file.
      *
      * @param string $file The path to the composer.json file.
      */
-    public function __construct($file)
+    public function __construct(public $file)
     {
-        $this->file = $file;
     }
 
     /**
@@ -33,13 +27,9 @@ class ComposerReader implements ComposerReaderInterface
      *
      * @return boolean Whether current composer.json file is readable or not.
      */
-    public function canRead()
+    public function canRead(): bool
     {
-        if (is_file($this->file) && is_readable($this->file)) {
-            return true;
-        }
-
-        return false;
+        return is_file($this->file) && is_readable($this->file);
     }
 
     /**
@@ -47,13 +37,9 @@ class ComposerReader implements ComposerReaderInterface
      *
      * @return boolean Whether current composer.json file can be written or not.
      */
-    public function canWrite()
+    public function canWrite(): bool
     {
-        if (is_file($this->file) && is_writable($this->file)) {
-            return true;
-        }
-
-        return false;
+        return is_file($this->file) && is_writable($this->file);
     }
 
     /**
@@ -66,7 +52,7 @@ class ComposerReader implements ComposerReaderInterface
         return $this->canRead() && $this->canWrite();
     }
 
-    private $_content;
+    private ?array $_content = null;
 
     /**
      * The content of the json file as array.
@@ -78,7 +64,7 @@ class ComposerReader implements ComposerReaderInterface
     {
         if ($this->_content === null) {
             if (!$this->canRead()) {
-                throw new Exception("Unable to read config file '{$this->file}'.");
+                throw new Exception(sprintf('Unable to read config file \'%s\'.', $this->file));
             }
 
             $buffer = $this->getFileContent($this->file);
@@ -98,7 +84,7 @@ class ComposerReader implements ComposerReaderInterface
     public function writeContent(array $content)
     {
         if (!$this->canWrite()) {
-            throw new Exception("Unable to write config file '{$this->file}'.");
+            throw new Exception(sprintf('Unable to write config file \'%s\'.', $this->file));
         }
 
         $json = $this->jsonEncode($content);
@@ -121,7 +107,7 @@ class ComposerReader implements ComposerReaderInterface
     {
         $content = $this->getContent();
 
-        return isset($content[$section]) ? $content[$section] : $defaultValue;
+        return $content[$section] ?? $defaultValue;
     }
 
     /**
@@ -175,7 +161,7 @@ class ComposerReader implements ComposerReaderInterface
         $output = ob_end_clean();
         chdir($olddir);
 
-        return $cmd === false ? false : true;
+        return $cmd !== false;
     }
 
     /**
@@ -200,7 +186,7 @@ class ComposerReader implements ComposerReaderInterface
     {
         $handler = file_put_contents($file, $data);
 
-        return $handler === false ? false : true;
+        return $handler !== false;
     }
 
     /**
@@ -220,7 +206,6 @@ class ComposerReader implements ComposerReaderInterface
     /**
      * Encodes a php array structure into a json string.
      *
-     * @param array $data
      * @return string
      */
     protected function jsonEncode(array $data)
