@@ -4,12 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.0.0
+## 2.0.0 (2. April 2023)
 
-+ **Removed support for PHP 7.**
++ **Remove support for PHP 7.**
 + Added support for PHP 8.0 - 8.2.
 + Added phpstan, rector and php cs fixer as GitHub Action automation.
-+ Remove Travis, replace with GitHub Actions
++ Remove Travis, replaced with GitHub Actions
 
 ## 1.3.0 (17. June 2019)
 
