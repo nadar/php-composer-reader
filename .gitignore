@@ -3,3 +3,4 @@
 /.project
 /.settings/
 .php-cs-fixer.cache
+composer.lock
