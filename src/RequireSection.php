@@ -70,7 +70,7 @@ class RequireSection extends DataIterator implements ManipulationInterface
         $data = $this->reader->contentSection(static::SECTION_KEY, []);
 
         if (!array_key_exists($sectionIdentifier, $data)) {
-            throw new Exception(sprintf('Unable to find the given section key \'%s\' to remove.', $sectionIdentifier));
+            throw new Exception(sprintf("Unable to find the given section key '%s' to remove.", $sectionIdentifier));
         }
 
         unset($data[$sectionIdentifier]);
