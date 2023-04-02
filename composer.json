@@ -16,6 +16,7 @@
         }
     ],
     "require": {
+        "php": ">=8",
         "composer/semver": "^3"
     },
     "autoload": {
