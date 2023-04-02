@@ -2,6 +2,7 @@
 
 namespace Nadar\PhpComposerReader\Tests;
 
+use Exception;
 use Nadar\PhpComposerReader\ComposerReader;
 use Nadar\PhpComposerReader\RequireSection;
 use Nadar\PhpComposerReader\Package;
@@ -63,5 +64,15 @@ class RequireSectionTest extends ComposerReaderTestCase
 
         $this->assertTrue($section->add($new)->save());
         $this->assertTrue($section->remove($new->name)->save());
+    }
+
+    public function testNotExistingRemove()
+    {
+
+        $reader = new ComposerReader($this->getValidJson());
+        $section = new RequireSection($reader);
+
+        $this->expectException(Exception::class);
+        $section->remove('doesnotexists');
     }
 }
