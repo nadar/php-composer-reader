@@ -1,4 +1,4 @@
-# PHP Composer.json Reader
+# Composer JSON Reader and Manipulator
 
 ![Tests](https://github.com/nadar/php-composer-reader/workflows/Tests/badge.svg)
 [![Latest Stable Version](https://poser.pugx.org/nadar/php-composer-reader/v/stable)](https://packagist.org/packages/nadar/php-composer-reader)
@@ -7,7 +7,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3d695b2ba5d4298e28fe/test_coverage)](https://codeclimate.com/github/nadar/php-composer-reader/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3d695b2ba5d4298e28fe/maintainability)](https://codeclimate.com/github/nadar/php-composer-reader/maintainability)
 
-A small PHP library to manipulated and read the **composer.json** file. Add new sections, see whether its writeable/readable or just get some informations from the composer schema like description, title, etc.
+A small PHP library to manipulated and read the **composer.json** file. Add new sections, see whether its writeable/readable or just get some informations from the composer schema like description, title and others.
 
 ## Install
 

@@ -73,7 +73,7 @@ abstract class DataIterator implements Iterator, Countable
      */
     public function rewind(): void
     {
-        return reset($this->data);
+        reset($this->data);
     }
 
     /**
@@ -89,7 +89,7 @@ abstract class DataIterator implements Iterator, Countable
      */
     public function next(): void
     {
-        return next($this->data);
+        next($this->data);
     }
 
     /**
