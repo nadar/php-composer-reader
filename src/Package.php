@@ -3,8 +3,8 @@
 namespace Nadar\PhpComposerReader;
 
 use Composer\Semver\Comparator;
-use Nadar\PhpComposerReader\Interfaces\SectionInstanceInterface;
 use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
+use Nadar\PhpComposerReader\Interfaces\SectionInstanceInterface;
 
 /**
  * Package Object.
@@ -17,23 +17,16 @@ use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
 class Package implements SectionInstanceInterface
 {
     public $reader;
-    
-    public $name;
-    
-    public $constraint;
-    
+
     /**
      * Constructor
      *
-     * @param ComposerReaderInterface $reader
      * @param string $name
      * @param string $constraint
      */
-    public function __construct(ComposerReaderInterface $reader, $name, $constraint)
+    public function __construct(ComposerReaderInterface $reader, public $name, public $constraint)
     {
         $this->reader = $reader;
-        $this->name = $name;
-        $this->constraint = $constraint;
     }
 
     /**

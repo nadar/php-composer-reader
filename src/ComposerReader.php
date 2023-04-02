@@ -14,48 +14,34 @@ use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
 class ComposerReader implements ComposerReaderInterface
 {
     /**
-     * @var string Contains the path to the composer.json file.
-     */
-    public $file;
-    
-    /**
      * Create new ComposerReader instance by providing the path to the composer.json file.
      *
      * @param string $file The path to the composer.json file.
      */
-    public function __construct($file)
+    public function __construct(public $file)
     {
-        $this->file = $file;
     }
-    
+
     /**
      * Whether current composer.json file is readable or not.
      *
      * @return boolean Whether current composer.json file is readable or not.
      */
-    public function canRead()
+    public function canRead(): bool
     {
-        if (is_file($this->file) && is_readable($this->file)) {
-            return true;
-        }
-        
-        return false;
+        return is_file($this->file) && is_readable($this->file);
     }
-    
+
     /**
      * Whether current composer.json file can be written or not.
      *
      * @return boolean Whether current composer.json file can be written or not.
      */
-    public function canWrite()
+    public function canWrite(): bool
     {
-        if (is_file($this->file) && is_writable($this->file)) {
-            return true;
-        }
-        
-        return false;
+        return is_file($this->file) && is_writable($this->file);
     }
-    
+
     /**
      * Whether file can be written and read.
      *
@@ -65,9 +51,9 @@ class ComposerReader implements ComposerReaderInterface
     {
         return $this->canRead() && $this->canWrite();
     }
-    
-    private $_content;
-    
+
+    private ?array $_content = null;
+
     /**
      * The content of the json file as array.
      *
@@ -78,16 +64,16 @@ class ComposerReader implements ComposerReaderInterface
     {
         if ($this->_content === null) {
             if (!$this->canRead()) {
-                throw new Exception("Unable to read config file '{$this->file}'.");
+                throw new Exception(sprintf("Unable to read config file '%s'.", $this->file));
             }
-            
+
             $buffer = $this->getFileContent($this->file);
             $this->_content = $this->jsonDecode($buffer);
         }
-        
+
         return $this->_content;
     }
-    
+
     /**
      * Write the content into the composer.json.
      *
@@ -98,14 +84,14 @@ class ComposerReader implements ComposerReaderInterface
     public function writeContent(array $content)
     {
         if (!$this->canWrite()) {
-            throw new Exception("Unable to write config file '{$this->file}'.");
+            throw new Exception(sprintf("Unable to write config file '%s'.", $this->file));
         }
-        
+
         $json = $this->jsonEncode($content);
-        
+
         return $this->writeFileContent($this->file, $json);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -113,43 +99,43 @@ class ComposerReader implements ComposerReaderInterface
     {
         return $this->writeContent($this->_content);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function contentSection($section, $defaultValue)
     {
         $content = $this->getContent();
-        
-        return isset($content[$section]) ? $content[$section] : $defaultValue;
+
+        return $content[$section] ?? $defaultValue;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function updateSection($section, $data)
     {
         $content = $this->getContent();
-        
+
         $content[$section] = $data;
-        
+
         $this->_content = $content;
     }
-        
+
     /**
      * {@inheritDoc}
      */
     public function removeSection($section)
     {
         $content = $this->getContent();
-        
-        if(isset($content[$section])) {
-            unset ($content[$section]);
+
+        if (isset($content[$section])) {
+            unset($content[$section]);
         }
-        
+
         $this->_content = $content;
     }
-    
+
     /**
      * Run a composer command in the given composer.json.
      *
@@ -168,16 +154,16 @@ class ComposerReader implements ComposerReaderInterface
         $folder = dirname($this->file);
         $olddir = getcwd();
         chdir($folder);
-        
+
         ob_start();
         $output = null;
         $cmd = system('composer ' . $command, $output);
         $output = ob_end_clean();
         chdir($olddir);
-        
-        return $cmd === false ? false : true;
+
+        return $cmd !== false;
     }
-    
+
     /**
      * Get the file content.
      *
@@ -188,7 +174,7 @@ class ComposerReader implements ComposerReaderInterface
     {
         return file_get_contents($file);
     }
-    
+
     /**
      * Write the file content.
      *
@@ -199,10 +185,10 @@ class ComposerReader implements ComposerReaderInterface
     protected function writeFileContent($file, $data)
     {
         $handler = file_put_contents($file, $data);
-        
-        return $handler === false ? false : true;
+
+        return $handler !== false;
     }
-    
+
     /**
      * Decodes a json string into php structure.
      *
@@ -213,14 +199,13 @@ class ComposerReader implements ComposerReaderInterface
     {
         $content = json_decode((string) $json, true);
         $this->handleJsonError(json_last_error());
-        
+
         return $content;
     }
-    
+
     /**
      * Encodes a php array structure into a json string.
      *
-     * @param array $data
      * @return string
      */
     protected function jsonEncode(array $data)
@@ -228,14 +213,14 @@ class ComposerReader implements ComposerReaderInterface
         set_error_handler(function () {
             $this->handleJsonError(JSON_ERROR_SYNTAX);
         }, E_WARNING);
-        
+
         $json = json_encode($data, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
         restore_error_handler();
         $this->handleJsonError(json_last_error());
-        
+
         return $json;
     }
-    
+
     /**
      * Handle json parsing errors.
      *
