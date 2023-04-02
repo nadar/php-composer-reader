@@ -2,6 +2,7 @@
 
 namespace Nadar\PhpComposerReader;
 
+use Exception;
 use Nadar\PhpComposerReader\Interfaces\ComposerReaderInterface;
 use Nadar\PhpComposerReader\Interfaces\ManipulationInterface;
 use Nadar\PhpComposerReader\Interfaces\SectionInstanceInterface;
