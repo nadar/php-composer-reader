@@ -214,7 +214,7 @@ class ComposerReader implements ComposerReaderInterface
             $this->handleJsonError(JSON_ERROR_SYNTAX);
         }, E_WARNING);
 
-        $json = json_encode($data, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+        $json = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         restore_error_handler();
         $this->handleJsonError(json_last_error());
 
