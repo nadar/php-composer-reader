@@ -11,12 +11,15 @@
     </testsuite>
   </testsuites>
   <coverage>
-		<exclude>
-			<directory>./vendor</directory>
-			<directory>./tests</directory>
-		</exclude>
-		<include>
+    <exclude>
+      <directory>./vendor</directory>
+      <directory>./tests</directory>
+    </exclude>
+    <include>
       <directory suffix=".php">./src</directory>
     </include>
-	</coverage>
+  </coverage>
+  <php>
+    <ini name="error_reporting" value="-1"/>
+  </php>
 </phpunit>
