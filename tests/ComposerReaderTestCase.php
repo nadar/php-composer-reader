@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Nadar\PhpComposerReader\Tests;
 
 use PHPUnit\Framework\TestCase;
+
+error_reporting(E_ALL);
 
 class ComposerReaderTestCase extends TestCase
 {
