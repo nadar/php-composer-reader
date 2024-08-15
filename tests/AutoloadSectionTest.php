@@ -20,6 +20,11 @@ class AutoloadSectionTest extends ComposerReaderTestCase
             $this->assertSame('src/', $autoload->source);
             $this->assertSame(AutoloadSection::TYPE_PSR4, $autoload->type);
         }
+
+        foreach ($section as $k => $v) {
+            $this->assertNotEmpty($k);
+            $this->assertNotEmpty($v);
+        }
     }
 
     public function testDevIterator()
