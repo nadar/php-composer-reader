@@ -63,6 +63,7 @@ abstract class DataIterator implements Iterator, Countable
     /**
      * @inheritDoc
      */
+    #[\ReturnTypeWillChange]
     public function current(): mixed
     {
         return $this->createIteratorItem();
@@ -71,6 +72,7 @@ abstract class DataIterator implements Iterator, Countable
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function rewind(): void
     {
         reset($this->data);
@@ -79,6 +81,7 @@ abstract class DataIterator implements Iterator, Countable
     /**
      * @inheritDoc
      */
+    #[\ReturnTypeWillChange]
     public function key(): mixed
     {
         return key($this->data);
@@ -87,6 +90,7 @@ abstract class DataIterator implements Iterator, Countable
     /**
      * @inheritDoc
      */
+    #[\ReturnTypeWillChange]
     public function next(): void
     {
         next($this->data);
@@ -95,6 +99,7 @@ abstract class DataIterator implements Iterator, Countable
     /**
      * @inheritDoc
      */
+    #[\ReturnTypeWillChange]
     public function valid(): bool
     {
         return key($this->data) !== null;
@@ -103,6 +108,7 @@ abstract class DataIterator implements Iterator, Countable
     /**
      * @inheritDoc
      */
+    #[\ReturnTypeWillChange]
     public function count(): int
     {
         return count($this->data);
