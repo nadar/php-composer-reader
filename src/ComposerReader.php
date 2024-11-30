@@ -51,6 +51,7 @@ class ComposerReader implements ComposerReaderInterface
         if ($this->isProvidedAsJsonArray()) {
             return false;
         }
+
         return is_file($this->file) && is_writable($this->file);
     }
 
@@ -156,8 +157,9 @@ class ComposerReader implements ComposerReaderInterface
         $this->_content = $content;
     }
 
-    private $_commandOutput = null;
-    private $_commandStatus = null;
+    private ?string $_commandOutput = null;
+
+    private ?int $_commandStatus = null;
 
     public function createCommand(string $command, ?string $folder = null): self
     {
@@ -178,7 +180,7 @@ class ComposerReader implements ComposerReaderInterface
         exec('composer ' . $command . ' 2>&1', $outputLines, $status);
 
         // Store full output in case of failure
-        if ((int) $status !== 0) {
+        if ($status !== 0) {
             // Failure: Keep all lines
             $this->_commandOutput = implode("\n", $outputLines);
         } else {
@@ -187,7 +189,7 @@ class ComposerReader implements ComposerReaderInterface
             $this->_commandOutput = trim(end($filteredLines)); // Get last non-empty line
         }
 
-        $this->_commandStatus = (int) $status;
+        $this->_commandStatus = $status;
 
         if ($olddir !== null) {
             chdir($olddir);
