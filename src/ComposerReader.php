@@ -51,6 +51,7 @@ class ComposerReader implements ComposerReaderInterface
         if ($this->isProvidedAsJsonArray()) {
             return false;
         }
+
         return is_file($this->file) && is_writable($this->file);
     }
 
