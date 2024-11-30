@@ -106,6 +106,23 @@ class ComposerReaderTest extends ComposerReaderTestCase
         
         $this->assertTrue($r);
     }
+
+    public function testRunCommandOutput()
+    {
+        $reader = new ComposerReader($this->getWorkingComposerJson());
+
+        $this->assertTrue($reader->canRead());
+        
+        $cmd = $reader->createCommand('dumpautoload');
+        $this->assertTrue($cmd->commandIsSuccessful());
+        $this->assertSame($cmd->getCommandOutput(), 'Generated autoload files');
+        $this->assertSame($cmd->getCommandStatus(), 0);
+
+        $cmdError = $reader->createCommand('dumpautoload --no-such-option');
+        $this->assertFalse($cmdError->commandIsSuccessful());
+        $this->assertSame($cmdError->getCommandStatus(), 1);
+        $this->assertStringContainsString('tion does not ex', $cmdError->getCommandOutput());
+    }
     
     public function testRemove()
     {

@@ -156,6 +156,61 @@ class ComposerReader implements ComposerReaderInterface
         $this->_content = $content;
     }
 
+    private $_commandOutput = null;
+    private $_commandStatus = null;
+
+    public function createCommand(string $command, ?string $folder = null): self
+    {
+        $this->_commandOutput = null;
+        $this->_commandStatus = null;
+
+        $olddir = null;
+        if ($folder === null) {
+            $folder = dirname($this->file);
+            $olddir = getcwd();
+        }
+
+        chdir($folder);
+
+        // Execute the command and capture its full output
+        $outputLines = [];
+        $status = null;
+        exec('composer ' . $command . ' 2>&1', $outputLines, $status);
+
+        // Store full output in case of failure
+        if ((int) $status !== 0) {
+            // Failure: Keep all lines
+            $this->_commandOutput = implode("\n", $outputLines);
+        } else {
+            // Success: Keep only the last non-empty line
+            $filteredLines = array_filter($outputLines); // Remove empty lines
+            $this->_commandOutput = trim(end($filteredLines)); // Get last non-empty line
+        }
+
+        $this->_commandStatus = (int) $status;
+
+        if ($olddir !== null) {
+            chdir($olddir);
+        }
+
+        return $this;
+    }
+
+    public function commandIsSuccessful(): bool
+    {
+        return $this->getCommandStatus() === 0;
+    }
+
+    public function getCommandOutput(): ?string
+    {
+        return trim($this->_commandOutput);
+    }
+
+    public function getCommandStatus(): ?int
+    {
+        return $this->_commandStatus;
+    }
+
     /**
      * Run a composer command in the given composer.json.
      *
@@ -171,17 +226,7 @@ class ComposerReader implements ComposerReaderInterface
      */
     public function runCommand($command)
     {
-        $folder = dirname($this->file);
-        $olddir = getcwd();
-        chdir($folder);
-
-        ob_start();
-        $output = null;
-        $cmd = system('composer ' . $command, $output);
-        $output = ob_end_clean();
-        chdir($olddir);
-
-        return $cmd !== false;
+        return $this->createCommand($command)->commandIsSuccessful();
     }
 
     /**
