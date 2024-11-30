@@ -129,4 +129,16 @@ class ComposerReaderTest extends ComposerReaderTestCase
         $this->expectException('\Exception');
         $reader->writeContent(['foo' => 'bar']);
     }
+    
+    public function testUseArrayInputAsContent()
+    {
+        $json = $this->getValidJson();
+        $array = json_decode(file_get_contents($json), true);
+
+        $reader = new ComposerReader($array);
+        $this->assertTrue($reader->canRead());
+        $this->assertFalse($reader->canWrite());
+        $this->assertFalse($reader->canReadAndWrite());
+        $this->assertArrayHasKey('name', $reader->getContent());
+    }
 }

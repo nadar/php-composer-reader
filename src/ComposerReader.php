@@ -18,8 +18,13 @@ class ComposerReader implements ComposerReaderInterface
      *
      * @param string $file The path to the composer.json file.
      */
-    public function __construct(public $file)
+    public function __construct(public string|array $file)
     {
+    }
+
+    protected function isProvidedAsJsonArray(): bool
+    {
+        return is_array($this->file);
     }
 
     /**
@@ -29,6 +34,10 @@ class ComposerReader implements ComposerReaderInterface
      */
     public function canRead(): bool
     {
+        if ($this->isProvidedAsJsonArray()) {
+            return true;
+        }
+
         return is_file($this->file) && is_readable($this->file);
     }
 
@@ -39,6 +48,9 @@ class ComposerReader implements ComposerReaderInterface
      */
     public function canWrite(): bool
     {
+        if ($this->isProvidedAsJsonArray()) {
+            return false;
+        }
         return is_file($this->file) && is_writable($this->file);
     }
 
@@ -60,8 +72,12 @@ class ComposerReader implements ComposerReaderInterface
      * @throws Exception
      * @return array The composer.json file as array.
      */
-    public function getContent()
+    public function getContent(): array
     {
+        if ($this->isProvidedAsJsonArray()) {
+            return $this->file;
+        }
+
         if ($this->_content === null) {
             if (!$this->canRead()) {
                 throw new Exception(sprintf("Unable to read config file '%s'.", $this->file));
@@ -83,6 +99,10 @@ class ComposerReader implements ComposerReaderInterface
      */
     public function writeContent(array $content)
     {
+        if ($this->isProvidedAsJsonArray()) {
+            throw new Exception("Unable to write content as file is provided as array.");
+        }
+
         if (!$this->canWrite()) {
             throw new Exception(sprintf("Unable to write config file '%s'.", $this->file));
         }
